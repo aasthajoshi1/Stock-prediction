@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Trend Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Stock Trend Prediction</h1>
+        
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Enter Stock Ticker:</label>
+                <input type="text" class="form-control" name="stock" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        {% if plot_ema_20_50 %}
+        <h3 class="mt-4">Closing Price vs Time (20 & 50 Days EMA)</h3>
+        <img src="data:image/png;base64,{{ plot_ema_20_50 }}" class="img-fluid">
+        {% endif %}
+
+        {% if plot_ema_100_200 %}
+        <h3 class="mt-4">Closing Price vs Time (100 & 200 Days EMA)</h3>
+        <img src="data:image/png;base64,{{ plot_ema_100_200 }}" class="img-fluid">
+        {% endif %}
+
+        {% if plot_prediction %}
+        <h3 class="mt-4">Prediction vs Original Trend</h3>
+        <img src="data:image/png;base64,{{ plot_prediction }}" class="img-fluid">
+        {% endif %}
+
+        {% if data_desc %}
+        <h3 class="mt-4">Descriptive Data</h3>
+        {{ data_desc | safe }}
+        {% endif %}
+
+        {% if dataset_link %}
+        <div class="mt-4 text-center">
+            <a href="{{ url_for('download_file', filename=dataset_link.split('/')[-1]) }}" class="btn btn-success" download>
+                📥 Download Dataset (CSV)
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
