@@ -18,7 +18,7 @@ app.secret_key = "your_secret_key"  # Required for flash messages
 os.makedirs("static", exist_ok=True)
 
 # Load Model (Handle errors)
-MODEL_PATH = "C://Users//sit421//Desktop//STOCK PRICE PREDICTION USING LSTM//.ipynb_checkpoints//stock_dl_model.h5"
+MODEL_PATH = os.path.join("model", "stock_dl_model.h5")
 
 model = None
 try:
